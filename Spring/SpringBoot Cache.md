@@ -61,11 +61,11 @@ public void deleteUser(Long userId) {
 로컬 캐시는 성능을 향상시키는 데 효과적이지만, 분산 시스템에서는 여러 노드 간의 캐시 동기화 문제가 발생할 수 있다. 따라서 다수의 인스턴스를 사용하는 환경에서는 Redis와 같은 분산 캐시를 사용하는 것이 좋다. 로컬 캐시는 단일 인스턴스 환경이나 데이터 일관성이 크게 중요하지 않은 경우에 적합하다.
 
 ## 7. 실전 예제: 국가 정보 캐시하기
-사용자의 언어 설정에 따라 국가 정보를 제공해야 한다고 가정해 보자. `getCountriesWithImageUrls` 메소드를 통해 국가 정보 목록을 가져오는데, 이 데이터를 캐시에 저장하면 각 요청마다 반복적인 데이터베이스 호출을 줄일 수 있다.
+사용자의 언어 설정에 따라 국가 정보를 제공해야 한다고 가정해 보자. `getCountries` 메소드를 통해 국가 정보 목록을 가져오는데, 이 데이터를 캐시에 저장하면 각 요청마다 반복적인 데이터베이스 호출을 줄일 수 있다.
 
 ```java
 @Cacheable(value = "countries", key = "#locale")
-public List<Country> getCountriesWithImageUrls(Locale locale) {
+public List<Country> getCountries(Locale locale) {
     // 국가 정보 목록을 데이터베이스에서 가져오는 로직
     return countryRepository.findAllByLocale(locale);
 }
