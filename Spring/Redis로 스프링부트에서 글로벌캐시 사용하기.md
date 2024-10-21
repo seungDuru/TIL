@@ -123,7 +123,7 @@ public class LocalCacheConfig {
 @Cacheable(cacheNames = "allTranslations", key = "#locale", cacheManager = "globalCacheManager")
 public List<Translation> getCachedTranslationsByLocale(Locale locale) {
     return translationRepository.findAllByLocale(locale);
-}
+} 
 ```
 
 - 로컬 캐시 사용:
