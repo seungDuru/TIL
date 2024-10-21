@@ -47,3 +47,4 @@ public class RedisListWrapper<T> implements Serializable {
 
 Redis를 글로벌 캐시로 사용하면서 GenericJackson2JsonRedisSerializer를 사용할 때 발생할 수 있는 리스트 형태의 데이터 타입 인식 문제를 해결하기 위해 간단한 Wrapper 객체를 사용하는 것은 데이터 Wrapping 방식이 매우 유용하다. 특히 간단히 사용할 수 있어서 매우 편하다.
 
+#spring
