@@ -90,5 +90,5 @@ public class CountryService {
 
 위 코드에서는 `getAllCountries()` 메소드의 결과를 `country` 캐시에 저장한다. 최초 호출 시에는 데이터베이스에서 데이터를 가져오고, 이후 호출 시에는 캐시된 데이터를 반환하게 된다.
 
-## 6. 결론
+## 6. 마무리
 CaffeineCache를 스프링부트에서 로컬 캐시로 설정하는 것은 간단하면서도 강력한 성능 최적화 방법이다. 위에서 설명한 것처럼 `@EnableCaching`, `LocalCacheType` Enum, 그리고 `LocalCacheConfig` 클래스를 사용하여 Caffeine 캐시를 설정할 수 있다. 이를 통해 반복적인 데이터베이스 호출을 줄이고, 애플리케이션의 응답 시간을 크게 개선할 수 있다.
