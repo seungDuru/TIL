@@ -8,7 +8,6 @@
 ## 2. GlobalCacheType Enum 정의
 Redis 글로벌 캐시 타입을 관리하기 위해 `GlobalCacheType`이라는 Enum을 정의한다. 이 Enum은 캐시의 이름, 설명, 만료 시간(TTL)을 지정한다.
 
-### 코드: GlobalCacheType Enum 정의
 ```java
 @Getter
 @RequiredArgsConstructor
@@ -26,7 +25,6 @@ public enum GlobalCacheType {
 ## 3. Redis 글로벌 캐시 설정
 글로벌 캐시 설정을 위해 Redis를 사용하여 `GlobalCacheConfig` 클래스를 작성한다. 이 클래스는 Redis 캐시 매니저를 빈으로 등록한다.
 
-### 코드: Redis 글로벌 캐시 설정
 ```java
 @Configuration
 public class GlobalCacheConfig {
@@ -92,7 +90,6 @@ public class GlobalCacheConfig {
 ## 4. 로컬 캐시 설정 (Caffeine)
 로컬 캐시 설정은 보조적으로 Caffeine을 사용하여 설정한다. `LocalCacheConfig` 클래스를 작성하고, `localCacheManager`에 `@Primary` 어노테이션을 사용하여 기본 캐시 매니저로 지정한다.
 
-### 코드: 로컬 캐시 설정 (Caffeine)
 ```java
 @Configuration
 public class LocalCacheConfig {
@@ -122,7 +119,6 @@ public class LocalCacheConfig {
 
 - 글로벌 캐시 사용:
 
-### 코드: 글로벌 캐시 사용
 ```java
 @Cacheable(cacheNames = "allTranslations", key = "#locale", cacheManager = "globalCacheManager")
 public List<Translation> getCachedTranslationsByLocale(Locale locale) {
@@ -132,7 +128,6 @@ public List<Translation> getCachedTranslationsByLocale(Locale locale) {
 
 - 로컬 캐시 사용:
 
-### 코드: 로컬 캐시 사용
 ```java
 @Transactional(readOnly = true)
 @Cacheable(cacheNames = "locale", cacheManager = "localCacheManager")
