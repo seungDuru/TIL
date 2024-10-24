@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.function.Function;  
 import java.util.function.Supplier;  
   
-public class AsyncBuilder<T> {  
+public class AsyncBuilder<T> {   
    
     private CompletableFuture<T> future;  
     private static final Executor executor = Executors.newFixedThreadPool(10);  
