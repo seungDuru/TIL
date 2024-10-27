@@ -29,7 +29,7 @@ public class ConsumerExample {
 
 **Supplier**는 인자를 받지 않고 값을 반환하는 함수형 인터페이스로 주로 데이터를 제공(Supply)하는 역할을 한다.
 
-**메소드 시그니처**:
+**메소드 시그니처**: 
 ```java
 T get()
 ```
