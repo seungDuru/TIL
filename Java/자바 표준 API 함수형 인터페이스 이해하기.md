@@ -123,7 +123,7 @@ public class PredicateExample {
 }
 ```
 
-`Predicate`는 조건을 평가하여 `boolean` 값을 반환하며, 위 예제에서는 문자열이 비어 있는지 여부를 확인하는 조건으로 사용했다.
+`Predicate`는 조건을 평가하여 `boolean` 값을 반환하며, 위 예제에서는 문자열이 비어 있는지 여부를 확인하는 조건으로 사용했다. 
 
 ## 요약
 
