@@ -18,7 +18,7 @@ Request 타임아웃은 서버 또는 클라이언트가 특정 요청을 수행
 
 ## 2. WebClient에서 타임아웃 설정하기
 
-스프링 WebClient는 비동기 방식의 HTTP 요청을 처리하는 강력한 도구다. WebClient에서 타임아웃 설정을 통해 네트워크 지연이나 서버 문제를 보다 효과적으로 관리할 수 있다. 아래는 WebClient에서 연결, 읽기, 쓰기 타임아웃을 설정하는 방법에 대한 예제다.
+스프링 WebClient는 비동기 방식의 HTTP 요청을 처리하는 강력한 도구다. WebClient에서 타임아웃 설정을 통해 네트워크 지연이나 서버 문제를 보다 효과적으로 관리할 수 있다. 아래는 WebClient에서 연결, 읽기, 쓰기 타임아웃을 설정하는 방법에 대한 예제다. 
 
 ```java
 import org.springframework.web.reactive.function.client.WebClient;
