@@ -1,36 +1,34 @@
-# 자바 스프링부트에서 Resilience4j로 탄력적인 서비스 구현하기
+스프링 환경에서 외부 시스템과의 통신 중 발생할 수 있는 오류를 유연하게 처리하고, 애플리케이션의 안정성을 높이기 위해 Resilience4j를 많이 사용한다. 
 
-자바 스프링부트 환경에서 외부 시스템과의 통신 중 발생할 수 있는 오류를 유연하게 처리하고, 애플리케이션의 안정성을 높이기 위해 Resilience4j를 사용하는 방법을 알아보겠습니다. 이 글에서는 Resilience4j의 개념, 사용법, 그리고 사용 시 주의해야 할 점들을 자세히 설명합니다.
+## 1. Resilience4j란?
 
-## 1. Resilience4j란 무엇인가?
+Resilience4j는 현대 분산 시스템에서 필수적인 탄력성을 구현하기 위한 경량의 라이브러리로 Netflix의 Hystrix가 더 이상 유지보수되지 않는 이후로, 많은 개발자들이 Resilience4j를 대안으로 선택하고 있다. 주요 기능으로는 다음과 같다.
 
-Resilience4j는 현대 분산 시스템에서 필수적인 탄력성을 구현하기 위한 경량의 라이브러리입니다. Netflix의 Hystrix가 더 이상 유지보수되지 않는 이후로, 많은 개발자들이 Resilience4j를 대안으로 선택하고 있습니다. 주요 기능으로는 다음과 같은 것들이 있습니다:
+- **서킷 브레이커 (Circuit Breaker)**: 오류가 반복되는 경우 외부 시스템과의 연결을 차단하여 전체 시스템이 영향을 받지 않도록 보호
+- **리트라이 (Retry)**: 실패한 요청을 일정 횟수까지 재시도 처리
+- **레이트 리미터 (Rate Limiter)**: 특정 시간 동안의 요청 횟수를 제한하여 서비스 오버로드를 방지
+- **벌크헤드 (Bulkhead)**: 리소스를 구획화하여 하나의 서비스 실패가 다른 서비스에 영향을 미치지 않도록 처리
 
-- **서킷 브레이커 (Circuit Breaker)**: 오류가 반복되는 경우 외부 시스템과의 연결을 차단하여 전체 시스템이 영향을 받지 않도록 보호합니다.
-- **리트라이 (Retry)**: 실패한 요청을 일정 횟수까지 재시도합니다.
-- **레이트 리미터 (Rate Limiter)**: 특정 시간 동안의 요청 횟수를 제한하여 서비스 오버로드를 방지합니다.
-- **벌크헤드 (Bulkhead)**: 리소스를 구획화하여 하나의 서비스 실패가 다른 서비스에 영향을 미치지 않도록 합니다.
-
-이러한 기능을 통해 Resilience4j는 분산 시스템에서 안정적인 서비스를 제공할 수 있도록 돕습니다.
+이러한 기능을 통해 Resilience4j는 분산 시스템에서 안정적인 서비스를 제공할 수 있도록 돕는다.
 
 ## 2. Resilience4j 사용 방법
 
-자바 스프링부트에서 Resilience4j를 사용하려면 먼저 Gradle에 Resilience4j 의존성을 추가해야 합니다.
+자바 스프링부트에서 Resilience4j를 사용하려면 먼저 Gradle에 Resilience4j 의존성을 추가해야 한다.
 
 ### 2.1 Gradle 의존성 추가하기
 
-먼저 `build.gradle` 파일에 Resilience4j와 스프링부트 스타터 의존성을 추가합니다.
+먼저 `build.gradle` 파일에 Resilience4j와 스프링부트 스타터 의존성을 추가한다.
 
 ```groovy
 implementation 'io.github.resilience4j:resilience4j-spring-boot3:2.0.2'
 implementation 'org.springframework.boot:spring-boot-starter-aop'
 ```
 
-AOP(Aspect Oriented Programming) 의존성을 추가하는 이유는 Resilience4j의 어노테이션 기반 구성을 사용하기 위해서입니다.
+AOP(Aspect Oriented Programming) 의존성을 추가하는 이유는 Resilience4j의 어노테이션 기반 구성을 사용하기 위함이다.
 
 ### 2.2 서킷 브레이커 설정하기
 
-서킷 브레이커는 Resilience4j에서 가장 많이 사용되는 기능 중 하나입니다. 외부 서비스가 지속적으로 실패하는 경우 서킷 브레이커를 통해 요청을 빠르게 차단함으로써 전체 애플리케이션의 성능 저하를 방지할 수 있습니다. 아래의 예제 코드를 통해 서킷 브레이커를 어떻게 적용할 수 있는지 살펴보겠습니다.
+서킷 브레이커는 Resilience4j에서 가장 많이 사용되는 기능 중 하나로 외부 서비스가 지속적으로 실패하는 경우 서킷 브레이커를 통해 요청을 빠르게 차단함으로써 전체 애플리케이션의 성능 저하를 방지할 수 있다.
 
 ```java
 @RestController
@@ -54,11 +52,11 @@ public class DemoController {
 }
 ```
 
-위 코드에서는 `@CircuitBreaker` 어노테이션을 사용하여 서킷 브레이커를 적용하였습니다. `fallbackMethod` 속성을 통해 실패 시 호출될 대체 메서드를 지정할 수 있습니다.
+위 코드에서는 `@CircuitBreaker` 어노테이션을 사용하여 서킷 브레이커를 적용하였다  `fallbackMethod` 속성을 통해 실패 시 호출될 대체 메서드를 지정할 수 있다.
 
 ### 2.3 설정 파일 작성하기
 
-서킷 브레이커의 동작 방식을 `application.yml` 파일에서 설정할 수 있습니다.
+서킷 브레이커의 동작 방식은 `application.yml` 파일에서 설정할 수 있다.
 
 ```yaml
 resilience4j:
@@ -73,11 +71,11 @@ resilience4j:
         wait-duration-in-open-state: 10s
 ```
 
-여기서 `sliding-window-size`는 서킷 브레이커가 상태를 평가하기 위해 고려하는 호출 횟수를 나타내며, `failure-rate-threshold`는 서킷을 열지 여부를 결정하기 위한 실패 비율입니다.
+여기서 `sliding-window-size`는 서킷 브레이커가 상태를 평가하기 위해 고려하는 호출 횟수를 나타내며, `failure-rate-threshold`는 서킷을 열지 여부를 결정하기 위한 실패 비율이다.
 
 ### 2.4 리트라이와 레이트 리미터 사용하기
 
-리트라이와 레이트 리미터를 적용하는 것도 비슷한 방식으로 가능합니다. 예를 들어, 특정 API 호출이 실패할 경우 재시도하도록 하려면 `@Retry` 어노테이션을 사용할 수 있습니다.
+리트라이와 레이트 리미터를 적용하는 것도 비슷한 방식으로 가능하다. 예를 들어, 특정 API 호출이 실패할 경우 재시도하도록 하려면 `@Retry` 어노테이션을 사용할 수 있습니다.
 
 ```java
 @Retry(name = "demoService", fallbackMethod = "fallbackDemo")
