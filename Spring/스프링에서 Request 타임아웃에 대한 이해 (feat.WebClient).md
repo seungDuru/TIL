@@ -48,7 +48,7 @@ public class WebClientTimeoutExample {
 }
 ```
 
-### 코드 설명
+### 코드 설명 
 
 - **HttpClient 설정**: `HttpClient.create()`를 통해 연결 및 읽기 타임아웃을 설정한다.
 
