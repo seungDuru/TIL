@@ -26,25 +26,25 @@ System.out.println(0.1 + 0.2); // 결과: 0.30000000000000004
 
 ### BigDecimal의 단점 및 유의점
 
-1. **성능 저하**: `BigDecimal`은 `double`이나 `float`보다 속도가 느립니다. 이유는 내부적으로 문자열처럼 숫자를 다루기 때문입니다.
-2. **복잡한 문법**:
-    - `BigDecimal` 간의 사칙연산이 연산자(`+`, `-`, `*`, `/`)를 지원하지 않고 메서드를 사용해야 합니다.
-        
-        java
-        
-        코드 복사
-        
-        `BigDecimal a = new BigDecimal("0.1"); BigDecimal b = new BigDecimal("0.2"); BigDecimal result = a.add(b); // 더하기 System.out.println(result); // 결과: 0.3`
-        
-    - 값 비교 시 `compareTo()`를 사용해야 합니다.
-        
-        java
-        
-        코드 복사
-        
-        `a.compareTo(b); // a < b 이면 -1, 같으면 0, a > b 이면 1`
-        
-3. **메모리 사용량**: `BigDecimal` 객체는 **메모리를 많이 사용**합니다.
+#### 성능 저하 
+`BigDecimal`은 `double`이나 `float`보다 속도가 느립니다. 이유는 내부적으로 문자열처럼 숫자를 다루기 때문입니다.
+
+#### 복잡한 문법
+
+`BigDecimal` 간의 사칙연산이 연산자(`+`, `-`, `*`, `/`)를 지원하지 않고 메서드를 사용해야 합니다.   
+
+```java
+BigDecimal a = new BigDecimal("0.1"); BigDecimal b = new BigDecimal("0.2"); BigDecimal result = a.add(b); // 더하기 System.out.println(result); // 결과: 0.3
+```
+
+ 값 비교 시 `compareTo()`를 사용해야 합니다.
+
+```java
+a.compareTo(b); // a < b 이면 -1, 같으면 0, a > b 이면 1
+```
+
+#### 메모리 사용량
+`BigDecimal` 객체는 **메모리를 많이 사용**합니다.
 
 ---
 
